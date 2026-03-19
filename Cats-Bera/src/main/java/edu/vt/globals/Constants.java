@@ -11,5 +11,5 @@ public class Constants {
 
     String breedID = ""; //to do later
 
-    String apiUrl = "https://api.thecatapi.com/v1/images/search?breed_id=" + breedId + "&api_key=" + Constants.THE_CAT_API_KEY;
+//    String apiUrl = "https://api.thecatapi.com/v1/images/search?breed_id=" + breedId + "&api_key=" + Constants.THE_CAT_API_KEY;
 }
