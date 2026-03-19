@@ -46,7 +46,7 @@ Getter and Setter Methods
         System.out.println("ListOfCats was called");
         if (listOfCats == null) {
             listOfCats = catFacade.findAll();
-            System.out.println("DEBUG: size = " + listOfCats.size());
+
         }
         return listOfCats;
     }
@@ -61,7 +61,7 @@ Getter and Setter Methods
     }
 
     //unselct the cat
-    public void unselct(){
+    public void unselect(){
     selected = null;
     }
 

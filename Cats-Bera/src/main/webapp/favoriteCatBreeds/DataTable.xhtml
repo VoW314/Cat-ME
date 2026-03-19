@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Osman Balci. Adapted by Shreyas Bera
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="jakarta.tags.core">
+
+<ui:composition template="/template/siteTemplate.xhtml">
+
+    <!-- Page title -->
+    <ui:define name="title">
+        <h:outputText value="Favorite Cat Breeds"/>
+    </ui:define>
+
+    <!-- Content -->
+    <ui:define name="editableContent">
+
+        <!-- Reset selection if validation fails -->
+        <c:if test="#{facesContext.validationFailed}">
+            ${catController.unselect()}
+        </c:if>
+
+        <f:metadata>
+            <f:viewAction action="#{catController.unselect()}" rendered="#{facesContext.postback}" />
+        </f:metadata>
+
+        <div align="center">
+            <h:form id="CatTableForm">
+                <p:panel header="List of Favorite Cat Breeds">
+
+                    <!-- Global Search / Filter -->
+                    <f:facet name="header">
+                        <div align="center">
+                            <p:inputText id="globalFilter" onkeyup="PF('catsDataTable').filter()" filterMatchMode="contains"
+                                         style="width: 250px"
+                                         placeholder="Enter Global Search Query" />
+                            &nbsp;
+                            <p:commandButton type="button" value="Clear All Filters" styleClass="ui-button-outlined"
+                                             icon="fas fa-undo" onclick="PF('catsDataTable').clearFilters()" />
+                        </div>
+                    </f:facet>
+
+                    <p:dataTable id="datalist"
+                                 value="#{catController.listOfCats}"
+                                 var="cat"
+                                 widgetVar="catsDataTable"
+                                 selectionMode="single"
+                                 selection="#{catController.selected}"
+                                 reflow="true"
+                                 showGridlines="true"
+                                 paginator="true"
+                                 rowKey="#{cat.catId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10,15,20,30,40,50"
+                                 emptyMessage="No cat found!" >
+
+              <!--          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/> -->
+
+                        <!-- Cat ID -->
+                        <p:column headerText="ID" sortBy="#{cat.catId}" filterBy="#{cat.catId}" style="width:50px">
+                            <h:outputText value="#{cat.catId}" />
+                        </p:column>
+
+                        <!-- Name -->
+                        <p:column headerText="Name" sortBy="#{cat.name}" filterBy="#{cat.name}" filterMatchMode="contains">
+                            <h:outputText value="#{cat.name}" />
+                        </p:column>
+
+                        <!-- Photo -->
+                        <p:column headerText="Photo" style="width:100px; text-align:center">
+                            <h:graphicImage value="#{cat.randomPhotoUrl}" width="80"/>
+                        </p:column>
+
+                        <!-- Temperament -->
+                        <p:column headerText="Temperament" sortBy="#{cat.temperament}" filterBy="#{cat.temperament}" filterMatchMode="contains">
+                            <h:outputText value="#{cat.temperament}" />
+                        </p:column>
+
+                        <!-- Origin -->
+                        <p:column headerText="Origin" sortBy="#{cat.origin}" filterBy="#{cat.origin}" filterMatchMode="contains">
+                            <h:outputText value="#{cat.origin}" />
+                        </p:column>
+
+                        <!-- Description -->
+                        <p:column headerText="Description" sortBy="#{cat.description}" filterBy="#{cat.description}" filterMatchMode="contains">
+                            <h:outputText value="#{cat.description}" />
+                        </p:column>
+
+                        <!-- Life Span -->
+                        <p:column headerText="Life Span" sortBy="#{cat.lifeSpan}" filterBy="#{cat.lifeSpan}" filterMatchMode="contains" style="text-align:center">
+                            <h:outputText value="#{cat.lifeSpan}" />
+                        </p:column>
+
+                        <!-- Weight -->
+                        <p:column headerText="Weight (lbs)" sortBy="#{cat.weight}" filterBy="#{cat.weight}" filterMatchMode="contains" style="text-align:center">
+                            <h:outputText value="#{cat.weight}" />
+                        </p:column>
+
+                        <!-- Vetstreet webpage. So -->
+                        <p:column headerText="Vetstreet" style="text-align:center; width:50px">
+                            <h:outputLink value="https://www.vetstreet.com/cats/#{cat.name}" target="_blank">
+                                <h:graphicImage name="images/wwwIcon.png" width="20"/>
+                            </h:outputLink>
+                        </p:column>
+
+                        <!-- Footer buttons
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton id="createButton" value="Create" icon="fas fa-plus" styleClass="rounded-button"
+                                                 actionListener="#{catController.prepareCreate()}"
+                                                 update=":CatCreateForm" oncomplete="PF('CatCreateDialog').show()"/>
+                                &nbsp;
+                                <p:commandButton id="viewButton" value="View" icon="fas fa-eye" styleClass="rounded-button"
+                                                 update=":CatViewForm" oncomplete="PF('CatViewDialog').show()"
+                                                 disabled="#{empty catController.selected}"/>
+                                &nbsp;
+                                <p:commandButton id="editButton" value="Edit" icon="fas fa-edit" styleClass="rounded-button"
+                                                 update=":CatEditForm" oncomplete="PF('CatEditDialog').show()"
+                                                 disabled="#{empty catController.selected}"/>
+                                &nbsp;
+                                <p:commandButton id="deleteButton" value="Delete" icon="fas fa-trash-alt" styleClass="rounded-button"
+                                                 actionListener="#{catController.destroy}"
+                                                 update="datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                                 disabled="#{empty catController.selected}">
+                                    <p:confirm header="Deletion Confirmation"
+                                               message="Are you sure you want to permanently delete #{catController.selected.name}?" />
+                                </p:commandButton>
+                            </div>
+                        </f:facet>
+                        -->
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+
+             Include dialogs
+            <ui:include src="/favoriteCatBreeds/Create.xhtml"/>
+            <ui:include src="/favoriteCatBreeds/Edit.xhtml"/>
+            <ui:include src="/favoriteCatBreeds/View.xhtml"/>
+
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+</html>

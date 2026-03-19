@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<!--
+  - Created by Osman Balci. Adapted by Shreyas Bera
+  - Copyright © 2026 Osman Balci. All rights reserved
+  -->
+
+<ui:composition>
+
+
+
+    <p:dialog id="CatCreateDialog" header="Create New Cat" widgetVar="CatCreateDialog" modal="true" resizable="false">
+        <h:form id="CatCreateForm">
+            <p:panelGrid columns="2" columnClasses="label,value" cellpadding="5">
+
+                <h:outputText value="Name:" />
+                <p:inputText value="#{catController.selected.name}" required="true" label="Name" />
+
+                <h:outputText value="Origin:" />
+                <p:inputText value="#{catController.selected.origin}" />
+
+                <h:outputText value="Temperament:" />
+                <p:inputTextarea value="#{catController.selected.temperament}" rows="3" cols="30" />
+
+                <h:outputText value="Description:" />
+                <p:inputTextarea value="#{catController.selected.description}" rows="3" cols="30" />
+
+                <h:outputText value="Life Span:" />
+                <p:inputText value="#{catController.selected.lifeSpan}" />
+
+                <h:outputText value="Weight (lbs):" />
+                <p:inputText value="#{catController.selected.weight}" />
+
+                <h:outputText value="Random Photo URL:" />
+                <p:inputText value="#{catController.selected.randomPhotoUrl}" />
+
+                <h:outputText value="Vetstreet URL:" />
+                <p:inputText value="#{catController.selected.vetstreetUrl}" />
+
+            </p:panelGrid>
+
+            <p:separator />
+
+            <p:commandButton value="Create" icon="fas fa-plus" styleClass="rounded-button"
+                             actionListener="#{catController.create()}"
+                             update=":CatTableForm,:growlInfoMessage"
+                             oncomplete="PF('CatCreateDialog').hide()"/>
+            &nbsp;
+            <p:commandButton value="Cancel" type="button" icon="fas fa-times" styleClass="rounded-button"
+                             onclick="PF('CatCreateDialog').hide()" />
+
+        </h:form>
+    </p:dialog>
+</ui:composition>
+</html>
