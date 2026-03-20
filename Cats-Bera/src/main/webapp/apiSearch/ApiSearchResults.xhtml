@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - Created by Shreyas Bera on 2026.3.20
+  - Copyright © 2026 Osman Balci. All rights reserved
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets" xmlns:f="http://java.sun.com/jsf/core">
+<!--
+  - Created by Osman Balci. Adapted by Shreyas Bera
+  - Copyright © 2026 Osman Balci. All rights reserved
+  -->
+<ui:composition template="/template/siteTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:define name="editableContent">
+
+<h:head>
+    <title>Search Results</title>
+</h:head>
+
+<h:body>
+<h:form>
+    <h:panelGroup rendered="#{not empty catApiController.selectedBreed}">
+
+
+
+        <!-- Image -->
+        <h:graphicImage value="#{catApiController.selectedBreed.imageUrl}" width="400"
+                        styleClass="smallImage"/>
+
+        <br></br>
+
+        <!-- After image we have this -->
+        <h1 style="text-align: center">Cat Breed API Search Results</h1>
+
+        <br></br>
+
+        <!-- Table which is centered after the words -->
+        <table style="margin:0 auto; width:80%; font-size:13pt;" border="1" cellpadding="5" cellspacing="0">
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>ID:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.id}</td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Name:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.name}</td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Description:</b></td>
+                <td bgcolor="oldlace">
+                    <div class="scrollableTextBox">
+                        #{catApiController.selectedBreed.description}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Temperament:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.temperament}</td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Country of Origin:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.origin}</td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Life Span:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.lifeSpan}</td>
+            </tr>
+
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Weight:</b></td>
+                <td bgcolor="oldlace">#{catApiController.selectedBreed.weight}</td>
+            </tr>
+
+            <!-- Vetstreet -->
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Vetstreet Page:</b></td>
+                <td bgcolor="oldlace">
+                    <h:panelGroup rendered="#{not empty catApiController.selectedBreed.vetstreetUrl}">
+                        <a href="#{catApiController.selectedBreed.vetstreetUrl}" target="_blank">
+                            <img src="#{resource['images:wwwIcon.png']}" width="30"/>
+                        </a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{empty catApiController.selectedBreed.vetstreetUrl}">
+                        N/A
+                    </h:panelGroup>
+                </td>
+            </tr>
+
+            <!-- Add to Favorites row.
+             So that its like Add To Favorites: | [ + Add to Favorites]
+             -->
+            <tr>
+                <td align="right" bgcolor="papayawhip"><b>Add to Favorites:</b></td>
+                <td bgcolor="oldlace" align="center">
+                    <p:commandButton value="Add to Favorites"
+                                     action="#{catApiController.addToFavorites()}"
+                                     update=":growlInfoMessage"
+                                     icon="fa-solid fa-plus"
+                                     styleClass="rounded-button"/>
+                </td>
+            </tr>
+
+        </table>
+
+
+
+    </h:panelGroup>
+</h:form>
+
+
+
+</h:body>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  - Created by Osman Balci on 2026.2.17
+  - Created by Osman Balci on 2026.2.17. Adapted by Shreyas Bera
   - Copyright © 2026 Osman Balci. All rights reserved.
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -59,13 +59,14 @@ siteTemplate for the entire site, achieving great maintainability.
 
                             <p:menuitem value="Home" outcome="/index" icon="fas fa-home"/>
 
-                            <p:menuitem value="Favorite Cats"
+                            <p:menuitem value="Favorite Cat Breeds"
                                         outcome="/favoriteCatBreeds/DataTable"
-                                        icon="fas fa-list"/>
+                                        icon="fa-solid fa-table"/>
 
-                            <p:menuitem value="Search Cat Breeds"
-                                        outcome="/favoriteCatBreeds/DataTable"
-                                        icon="fas fa-images"/>
+
+                            <p:menuitem value="Search API"
+                                        onclick="PF('CatBreedSearchDialog').show(); return false;"
+                                        icon="fa-solid fa-gear"/>
 
                             <!-- The dropdown menu -->
                             <p:submenu label="Show Random" icon="fas fa-shuffle">
@@ -96,7 +97,7 @@ siteTemplate for the entire site, achieving great maintainability.
 Selecting the 'API Search' menu option displays the included
 ApiSearch.xhtml file in a dialog box on top of the currently displayed page.
 -->
-    <!-- <ui:include src="/apiSearch/ApiSearch.xhtml"/> -->
+<ui:include src="/apiSearch/ApiSearch.xhtml"/>
 
 </ui:composition>
 </html>

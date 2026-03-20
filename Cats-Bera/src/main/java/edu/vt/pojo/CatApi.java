@@ -1,5 +1,5 @@
 /*
- * Created by Shreyas Bera on 2026.3.19
+ * Created by Osman Balci. Adapted by Shreyas Bera for Cat API
  * Copyright © 2026 Osman Balci. All rights reserved
  */
 package edu.vt.pojo;
@@ -13,46 +13,34 @@ public class CatApi {
      */
 
     /*
-     A unique 'id' is required by the <p:dataTable> attribute rowKey="#{aBook.id}"
+     A unique 'id' is required by the <p:dataTable> attribute rowKey="#{Cat.id}"
      for listing and sorting the books found as a result of the API search.
      */
-    private String id = null;
-    private String title;
-    private String authors;
-    private String publisher;
-    private String publishedDate;
+
+    private String id;
+    private String name;
     private String description;
-    private String isbn13;
-    private Integer pageCount;
-    private String printType;
+    private String temperament;
+    private String origin;
+    private String lifeSpan;
+    private String weight;
+    private String vetstreetUrl;
     private String imageUrl;
-    private String previewUrl;
+
 
     /*
     ==================
     Constructor Method
     ==================
      */
-    public CatApi(String id, String title, String authors, String publisher, String publishedDate, String description, String isbn13, Integer pageCount, String printType, String imageUrl, String previewUrl) {
-        this.id = id;
-        this.title = title;
-        this.authors = authors;
-        this.publisher = publisher;
-        this.publishedDate = publishedDate;
-        this.description = description;
-        this.isbn13 = isbn13;
-        this.pageCount = pageCount;
-        this.printType = printType;
-        this.imageUrl = imageUrl;
-        this.previewUrl = previewUrl;
+    public CatApi() {
     }
 
     /*
     =========================
-    Getter and Setter Methods
+    Getter and Setter Methods for the cats
     =========================
      */
-
     public String getId() {
         return id;
     }
@@ -61,36 +49,12 @@ public class CatApi {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String authors) {
-        this.authors = authors;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getPublishedDate() {
-        return publishedDate;
-    }
-
-    public void setPublishedDate(String publishedDate) {
-        this.publishedDate = publishedDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -101,28 +65,44 @@ public class CatApi {
         this.description = description;
     }
 
-    public String getIsbn13() {
-        return isbn13;
+    public String getTemperament() {
+        return temperament;
     }
 
-    public void setIsbn13(String isbn13) {
-        this.isbn13 = isbn13;
+    public void setTemperament(String temperament) {
+        this.temperament = temperament;
     }
 
-    public Integer getPageCount() {
-        return pageCount;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setPageCount(Integer pageCount) {
-        this.pageCount = pageCount;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public String getPrintType() {
-        return printType;
+    public String getLifeSpan() {
+        return lifeSpan;
     }
 
-    public void setPrintType(String printType) {
-        this.printType = printType;
+    public void setLifeSpan(String lifeSpan) {
+        this.lifeSpan = lifeSpan;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getVetstreetUrl() {
+        return vetstreetUrl;
+    }
+
+    public void setVetstreetUrl(String vetstreetUrl) {
+        this.vetstreetUrl = vetstreetUrl;
     }
 
     public String getImageUrl() {
@@ -131,13 +111,5 @@ public class CatApi {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getPreviewUrl() {
-        return previewUrl;
-    }
-
-    public void setPreviewUrl(String previewUrl) {
-        this.previewUrl = previewUrl;
     }
 }

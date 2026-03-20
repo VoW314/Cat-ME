@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets" xmlns:f="http://java.sun.com/jsf/core">
+<!--
+  - Created by Osman Balci. Adapted by Shreyas Bera
+  - Copyright © 2026 Osman Balci. All rights reserved
+  -->
+
+
+<!--
+ A form for the API Search
+-->
+<ui:composition>
+
+    <!--
+    ====================================================================================
+    | Selecting SEARCH Cat breed from the hamburger menu displays this Dialog window   |
+    | for the user to select a cat breed and click Search to view its details.         |
+    ====================================================================================
+    -->
+
+    <p:dialog id="CatSearchDlg"
+              header="Search API"
+              responsive="true"
+              position="center center"
+              widgetVar="CatBreedSearchDialog"
+              modal="true"
+              resizable="false"
+              appendTo="@(body)">
+
+        <h:form id="searchDialogForm">
+
+            <p:panel>
+                <div align="center">
+
+                    <br/>
+
+                    <p:outputLabel for="breedSelect"/>
+
+                    <br/><br/>
+
+                    <!-- Dropdown of cat breeds -->
+                    <p:selectOneMenu id="breedSelect"
+                                     value="#{catApiController.selectedBreedId}"
+                                     required="true"
+                                     requiredMessage="Please select a cat breed!"
+                                     style="width:250px">
+
+                        <f:selectItem itemLabel=" Select Breed " itemValue=""/>
+                        <f:selectItems value="#{catApiController.breedOptions}" />
+
+                    </p:selectOneMenu>
+
+                    <br/><br/><br/>
+
+                    <!-- SEARCH button -->
+                    <p:commandButton id="searchButton"
+                                     value="Search"
+                                     icon="fas fa-search"
+                                     styleClass="rounded-button"
+                                     ajax="false"
+                                     action="#{catApiController.searchBreedToResult()}"/>
+
+                    &nbsp;&nbsp;
+
+                    <!-- CANCEL button -->
+                    <p:commandButton value="Cancel"
+                                     icon="fas fa-ban"
+                                     styleClass="ui-button-outlined"
+                                     immediate="true"
+                                     onclick="PF('CatBreedSearchDialog').hide()"/>
+
+                    <br/><br/>
+
+                </div>
+            </p:panel>
+
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>
+</html>

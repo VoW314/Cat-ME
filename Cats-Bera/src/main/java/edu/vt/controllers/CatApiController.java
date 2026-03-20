@@ -5,7 +5,12 @@
 
 package edu.vt.controllers;
 
+import edu.vt.EntityBeans.Cat;
+import edu.vt.FacadeBeans.CatFacade;
+import edu.vt.controllers.util.JsfUtil;
+import edu.vt.globals.Methods;
 import edu.vt.pojo.CatApi;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.model.SelectItem; //used in the dropdown box for cat breeds
 import jakarta.inject.Named;
@@ -22,6 +27,7 @@ import java.net.URL;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
+import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 
 @Named("catApiController")
@@ -32,6 +38,12 @@ import org.primefaces.shaded.json.JSONObject;
 
 
    public class CatApiController implements Serializable{
+        // refer to the catAPI for the breed the user selects
+        private CatApi selectedBreed;
+
+       @EJB
+       private CatFacade CatFacade;
+
        private String catRandomPhotoUrl;
 
        public String getCatRandomPhotoUrl(){
@@ -180,6 +192,116 @@ import org.primefaces.shaded.json.JSONObject;
        }
 
 
-   }
+    /**
+     * Below is where I wrote the logic for the Cat API Search.
+     * It is pretty much a copy, paste of the earlier code from when
+     * I wrote the /random/cat___ logic.
+     *
+     * This uses the following Snippets given by Dr. Balci:
+     * https://manta.cs.vt.edu/cs3754/StudentsOnly/CodeSnippets/JSONDirectly.html
+     *
+     * https://manta.cs.vt.edu/cs3754/StudentsOnly/CodeSnippets/JSONDataProcessing.html
+     */
+
+
+
+
+    // Try to open up the api
+    public void searchBreed() {
+        try {
+            String apiUrl = "https://api.thecatapi.com/v1/images/search?breed_id="
+                    + selectedBreedId + "&api_key=" + edu.vt.globals.Constants.THE_CAT_API_KEY;
+
+            String json = Methods.readUrlContent(apiUrl);
+
+            // read from JSON
+            JSONArray array = new JSONArray(json);
+            JSONObject obj = array.getJSONObject(0);
+
+            JSONArray breeds = obj.getJSONArray("breeds");
+
+            // Trying this because of an issue
+            if(breeds.length() == 0){
+                return;
+            }
+
+            JSONObject breed = breeds.getJSONObject(0);
+
+            selectedBreed = new CatApi();
+
+            /* Uses the CatAPI.java set things.
+               This is because we are putting the words
+               into the empty table. Pretty much create a new object
+               to put this all into
+             */
+            selectedBreed.setId(breed.getString("id"));
+            selectedBreed.setName(breed.getString("name"));
+            selectedBreed.setDescription(breed.getString("description"));
+            selectedBreed.setTemperament(breed.getString("temperament"));
+            selectedBreed.setOrigin(breed.getString("origin"));
+            selectedBreed.setLifeSpan(breed.getString("life_span"));
+            selectedBreed.setWeight(breed.getJSONObject("weight").getString("imperial"));
+            selectedBreed.setVetstreetUrl(breed.optString("vetstreet_url", ""));
+
+            selectedBreed.setImageUrl(obj.getString("url"));
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    // The code to go to search the breed and go to the results page
+    public String searchBreedToResult(){
+        searchBreed();
+        return "/apiSearch/ApiSearchResults?faces-redirect=true";
+    }
+
+    // forgot this method earlier.
+    public CatApi getSelectedBreed(){
+        return selectedBreed;
+    }
+
+
+    /**
+     * Add to favorites functionality. This will add to favorites unless its null or already exists
+     */
+    public void addToFavorites() {
+
+        // if null
+        if (selectedBreed == null) {
+            JsfUtil.addErrorMessage("No breed selected!");
+            return;
+        }
+
+        // search for an existing cat with that name
+        Cat existingCat = CatFacade.findByName(selectedBreed.getName());
+
+        // if it exists
+        if (existingCat != null) {
+            JsfUtil.addErrorMessage("The cat breed already exists in the database!");
+            return;
+        }
+
+        // Create a new Cat entity when non null and doesn't exist
+        Cat newCat = new Cat();
+        newCat.setName(selectedBreed.getName());
+        newCat.setDescription(selectedBreed.getDescription());
+        newCat.setTemperament(selectedBreed.getTemperament());
+        newCat.setOrigin(selectedBreed.getOrigin());
+        newCat.setLifeSpan(selectedBreed.getLifeSpan());
+        newCat.setWeight(selectedBreed.getWeight());
+        newCat.setVetstreetUrl(selectedBreed.getVetstreetUrl());
+
+        // create the new cat
+        CatFacade.create(newCat);
+
+        // success message
+        JsfUtil.addSuccessMessage(" Cat was Created Sucessfully!");
+    }
+}
 
 
