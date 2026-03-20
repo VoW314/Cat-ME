@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+  - Created by Osman Balci. Adapted by Shreyas Bera
+  - Copyright © 2026 Osman Balci. All rights reserved
+  -->
+<ui:composition template="/template/siteTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="editableContent">
+
+        <h:form id="CatPhotoForm">
+
+            <div align="center">
+
+                <h1>Random Cat Photo</h1>
+
+                <!-- Image -->
+                <h:panelGroup rendered="#{not empty catApiController.catRandomPhotoUrl}">
+                    <h:graphicImage value="#{catApiController.catRandomPhotoUrl}" width="50%" />
+                </h:panelGroup>
+
+                <br/><br/>
+
+                <!-- Button -->
+                <p:commandButton value="Show Random Cat Photo"
+                                 icon="fas fa-paw"
+                                 styleClass="rounded-button"
+                                 update="CatPhotoForm"
+                                 action="#{catApiController.getRandomCatPhoto()}" />
+
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
