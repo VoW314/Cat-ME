@@ -12,6 +12,8 @@ import edu.vt.globals.Methods;
 import edu.vt.pojo.CatApi;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem; //used in the dropdown box for cat breeds
 import jakarta.inject.Named;
 
@@ -271,37 +273,50 @@ import org.primefaces.shaded.json.JSONObject;
      */
     public void addToFavorites() {
 
-        // if null
-        if (selectedBreed == null) {
-            JsfUtil.addErrorMessage("No breed selected!");
-            return;
+
+            // Check if breed no null
+            if (selectedBreed == null) {
+                JsfUtil.addErrorMessage("No breed selected!");
+                return;
+            }
+
+            //  check if breed already here
+            Cat existingCat = CatFacade.findByName(selectedBreed.getName());
+
+            if (existingCat != null) {
+                JsfUtil.addErrorMessage("The cat breed already exists in the database!");
+                return;
+            }
+
+            // new cat obj
+            Cat newCat = new Cat();
+
+            // set API Id to this cat
+            newCat.setCatId(selectedBreed.getId());
+
+            // Set all other fields now
+            newCat.setName(selectedBreed.getName());
+            newCat.setDescription(selectedBreed.getDescription());
+            newCat.setTemperament(selectedBreed.getTemperament());
+            newCat.setOrigin(selectedBreed.getOrigin());
+            newCat.setLifeSpan(selectedBreed.getLifeSpan());
+            newCat.setWeight(selectedBreed.getWeight());
+            newCat.setVetstreetUrl(selectedBreed.getVetstreetUrl());
+
+            // Random Photo url in a way that doesn't create SQL issue again
+            if (selectedBreed.getImageUrl() != null && !selectedBreed.getImageUrl().isEmpty()) {
+                newCat.setRandomPhotoUrl(selectedBreed.getImageUrl());
+            } else {
+                newCat.setRandomPhotoUrl(""); // avoid null constraint
+            }
+
+            // save to database
+            CatFacade.create(newCat);
+
+            // Show success message with Prime Faces
+            FacesContext.getCurrentInstance().addMessage("growlInfoMessage",
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Cat was created successfully!"));
         }
-
-        // search for an existing cat with that name
-        Cat existingCat = CatFacade.findByName(selectedBreed.getName());
-
-        // if it exists
-        if (existingCat != null) {
-            JsfUtil.addErrorMessage("The cat breed already exists in the database!");
-            return;
-        }
-
-        // Create a new Cat entity when non null and doesn't exist
-        Cat newCat = new Cat();
-        newCat.setName(selectedBreed.getName());
-        newCat.setDescription(selectedBreed.getDescription());
-        newCat.setTemperament(selectedBreed.getTemperament());
-        newCat.setOrigin(selectedBreed.getOrigin());
-        newCat.setLifeSpan(selectedBreed.getLifeSpan());
-        newCat.setWeight(selectedBreed.getWeight());
-        newCat.setVetstreetUrl(selectedBreed.getVetstreetUrl());
-
-        // create the new cat
-        CatFacade.create(newCat);
-
-        // success message
-        JsfUtil.addSuccessMessage(" Cat was Created Sucessfully!");
-    }
 }
 
 

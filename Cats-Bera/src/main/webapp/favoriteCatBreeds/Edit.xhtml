@@ -15,51 +15,165 @@
   - Copyright © 2026 Osman Balci. All rights reserved
   -->
 
-
 <ui:composition>
 
+    <p:dialog id="CatEditDialog" header="Edit Cat Breed"
+              widgetVar="CatEditDialog"
+              modal="true" position="center" appendTo="@(body)"
+              width="50%" height="400"
+              showEffect="slide" hideEffect="fade" responsive="true">
 
-    <p:dialog id="CatEditDialog" header="Edit Cat" widgetVar="CatEditDialog" modal="true" resizable="false">
-        <h:form id="CatEditForm">
-            <p:panelGrid columns="2" columnClasses="label,value" cellpadding="5">
+        <h:form id="CatEditForm" class="ui-datatable-data">
 
-                <h:outputText value="Name:" />
-                <p:inputText value="#{catController.selected.name}" required="true" label="Name" />
+            <h:panelGroup id="display">
 
-                <h:outputText value="Origin:" />
-                <p:inputText value="#{catController.selected.origin}" />
+                <table border="0" align="center" cellpadding="5" cellspacing="0">
+                    <tbody>
 
-                <h:outputText value="Temperament:" />
-                <p:inputTextarea value="#{catController.selected.temperament}" rows="3" cols="30" />
+                    <!-- Cat Id-->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Cat ID:" />
+                        </td>
+                        <td bgcolor="oldlace">
+                            <h:outputText value="#{catController.selected.catId}" />
+                        </td>
+                    </tr>
 
-                <h:outputText value="Description:" />
-                <p:inputTextarea value="#{catController.selected.description}" rows="3" cols="30" />
+                    <!-- Name -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Name:" for="name"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="name"
+                                         value="#{catController.selected.name}"
+                                         required="true"
+                                         requiredMessage="Name is required!"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
 
-                <h:outputText value="Life Span:" />
-                <p:inputText value="#{catController.selected.lifeSpan}" />
+                    <!-- Origin -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Origin:" for="origin"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="origin"
+                                         value="#{catController.selected.origin}"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
 
-                <h:outputText value="Weight (lbs):" />
-                <p:inputText value="#{catController.selected.weight}" />
+                    <!-- Temperament -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Temperament:" for="temperament"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputTextarea id="temperament"
+                                             value="#{catController.selected.temperament}"
+                                             rows="3" style="width:100%"/>
+                        </td>
+                    </tr>
 
-                <h:outputText value="Random Photo URL:" />
-                <p:inputText value="#{catController.selected.randomPhotoUrl}" />
+                    <!-- Description -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Description:" for="description"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputTextarea id="description"
+                                             value="#{catController.selected.description}"
+                                             rows="4" style="width:100%"/>
+                        </td>
+                    </tr>
 
-                <h:outputText value="Vetstreet URL:" />
-                <p:inputText value="#{catController.selected.vetstreetUrl}" />
+                    <!-- Life Span -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Life Span:" for="lifeSpan"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="lifeSpan"
+                                         value="#{catController.selected.lifeSpan}"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
 
-            </p:panelGrid>
+                    <!-- Weight -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Weight (lbs):" for="weight"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="weight"
+                                         value="#{catController.selected.weight}"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
 
-            <p:separator />
+                    <!-- Photo URL -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Random Photo URL:" for="photo"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="photo"
+                                         value="#{catController.selected.randomPhotoUrl}"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
 
-            <p:commandButton value="Save" icon="fas fa-save" styleClass="rounded-button"
-                             actionListener="#{catController.update()}"
-                             update=":CatTableForm,:growlInfoMessage"
-                             oncomplete="PF('CatEditDialog').hide()"/>
-            &nbsp;
-            <p:commandButton value="Cancel" type="button" icon="fas fa-times" styleClass="rounded-button"
-                             onclick="PF('CatEditDialog').hide()" />
+                    <!-- Vetstreet -->
+                    <tr>
+                        <td align="right" bgcolor="papayawhip">
+                            <p:outputLabel value="Vetstreet URL:" for="vet"/>
+                        </td>
+                        <td bgcolor="oldlace">
+                            <p:inputText id="vet"
+                                         value="#{catController.selected.vetstreetUrl}"
+                                         style="width:100%"/>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </h:panelGroup>
+
+            <br/><br/>
+
+            <!-- Buttons -->
+            <h:panelGroup>
+                <div align="center">
+
+                    <!-- SAVE -->
+                    <p:commandButton value="Save"
+                                     icon="fas fa-save"
+                                     styleClass="rounded-button"
+                                     ajax="false"
+                                     actionListener="#{catController.update}"
+                                     update="display,:CatTableForm:datalist,:growlInfoMessage,:growlWarningMessage,:growlErrorMessage,:growlFatalMessage"
+                                     oncomplete="handleSubmit(args, 'CatEditDialog');"/>
+
+                    &nbsp;
+
+                    <!-- CANCEL -->
+                    <p:commandButton value="Cancel"
+                                     icon="fas fa-ban"
+                                     styleClass="ui-button-outlined"
+                                     immediate="true"
+                                     onclick="PF('CatEditDialog').hide()" />
+
+                </div>
+            </h:panelGroup>
 
         </h:form>
     </p:dialog>
+
 </ui:composition>
+
+
 </html>

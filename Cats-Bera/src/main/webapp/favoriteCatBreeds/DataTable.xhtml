@@ -36,15 +36,19 @@ Created by Osman Balci. Adapted by Shreyas Bera
 
                     <!-- Global Search / Filter -->
                     <f:facet name="header">
-                        <div align="center">
-                            <p:inputText id="globalFilter" onkeyup="PF('catsDataTable').filter()" filterMatchMode="contains"
-                                         style="width: 250px"
-                                         placeholder="Enter Global Search Query" />
-                            &nbsp;
-                            <p:commandButton type="button" value="Clear All Filters" styleClass="ui-button-outlined"
-                                             icon="fas fa-undo" onclick="PF('catsDataTable').clearFilters()" />
-                        </div>
+                        List of Favorite Cat Breeds
                     </f:facet>
+
+                    <br></br>   
+                    <div align="center">
+                        <p:inputText id="globalFilter" onkeyup="PF('catsDataTable').filter()" filterMatchMode="contains"
+                                     style="width: 250px"
+                                     placeholder="Enter Global Search Query" />
+                        &nbsp;
+                        <p:commandButton type="button" value="Clear All Filters" styleClass="ui-button-outlined"
+                                         icon="fas fa-undo" onclick="PF('catsDataTable').clearFilters()" />
+                    </div>
+
 
                     <p:dataTable id="datalist"
                                  value="#{catController.listOfCats}"
@@ -60,8 +64,8 @@ Created by Osman Balci. Adapted by Shreyas Bera
                                  rowsPerPageTemplate="5,10,15,20,30,40,50"
                                  emptyMessage="No cat found!" >
 
-              <!--          <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/> -->
+                       <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <!-- Cat ID -->
                         <p:column headerText="ID" sortBy="#{cat.catId}" filterBy="#{cat.catId}" style="width:50px">
@@ -110,7 +114,7 @@ Created by Osman Balci. Adapted by Shreyas Bera
                             </h:outputLink>
                         </p:column>
 
-                        <!-- Footer buttons
+                         Footer buttons
                         <f:facet name="footer">
                             <div align="center">
                                 <p:commandButton id="createButton" value="Create" icon="fas fa-plus" styleClass="rounded-button"
@@ -134,7 +138,7 @@ Created by Osman Balci. Adapted by Shreyas Bera
                                 </p:commandButton>
                             </div>
                         </f:facet>
-                        -->
+
 
                     </p:dataTable>
 

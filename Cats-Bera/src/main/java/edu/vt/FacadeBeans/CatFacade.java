@@ -8,6 +8,7 @@ package edu.vt.FacadeBeans;
 import edu.vt.EntityBeans.Cat;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
@@ -46,12 +47,16 @@ public class CatFacade extends AbstractFacade<Cat> {
 
     // find cat by name
     public Cat findByName(String name) {
-        List<Cat> list = entityManager
-                .createQuery("SELECT c FROM Cat c WHERE c.name = :name", Cat.class)
-                .setParameter("name", name)
-                .getResultList();
+        try {
+            List<Cat> list = entityManager
+                    .createQuery("SELECT c FROM Cat c WHERE c.name = :name", Cat.class)
+                    .setParameter("name", name)
+                    .getResultList();
 
-        return list.isEmpty() ? null : list.get(0);
+            return list.isEmpty() ? null : list.get(0);
+        } catch(NoResultException e){
+            return null;
+        }
     }
 
     // delete the cat

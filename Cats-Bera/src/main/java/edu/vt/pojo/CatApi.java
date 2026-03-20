@@ -4,6 +4,10 @@
  */
 package edu.vt.pojo;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 // This class provides a Plain Old Java Object (POJO) representing a Book returned from the API
 public class CatApi {
     /*
@@ -11,11 +15,11 @@ public class CatApi {
     Instance Variables (Properties)
     ===============================
      */
+ // the apiID. Realized I needed this. Wrote apiId as everything already works with the String ID I made at the start
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long apiID;
 
-    /*
-     A unique 'id' is required by the <p:dataTable> attribute rowKey="#{Cat.id}"
-     for listing and sorting the books found as a result of the API search.
-     */
 
     private String id;
     private String name;
@@ -111,5 +115,14 @@ public class CatApi {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    // Realized I needed this when looking into this more
+    public Long getApiID(){
+        return apiID;
+    }
+
+    public void setApiID(Long apiID){
+        this.apiID = apiID;
     }
 }

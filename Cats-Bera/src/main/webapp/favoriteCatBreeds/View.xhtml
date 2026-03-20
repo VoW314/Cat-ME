@@ -11,101 +11,138 @@
   - Created by Osman Balci. Adapted by Shreyas Bera
   - Copyright © 2026 Osman Balci. All rights reserved
   -->
-
 <ui:composition>
 
-    <!-- Dialog to view cat details -->
-    <p:dialog id="CatViewDialog" header="View Cat Details" widgetVar="CatViewDialog"
-              modal="true" resizable="false" appendTo="@(body)" width="50%" responsive="true">
+    <p:dialog id="CatViewDialog" header="View Cat Breed"
+              widgetVar="CatViewDialog"
+              modal="true" position="center" appendTo="@(body)"
+              width="50%" height="400"
+              showEffect="slide" hideEffect="fade" responsive="true">
 
         <h:form id="CatViewForm" class="ui-datatable-data">
-            <table border="0" align="center" cellpadding="5" cellspacing="0">
-                <tbody>
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Name:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.name}" />
-                    </td>
-                </tr>
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Origin:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.origin}" />
-                    </td>
-                </tr>
+            <div align="center">
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Temperament:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.temperament}" />
-                    </td>
-                </tr>
+                <!-- Top Image -->
+                <h:graphicImage value="#{catController.selected.randomPhotoUrl}"
+                                class="scalableImage"/>
+                <br/><br/>
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Description:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.description}" />
-                    </td>
-                </tr>
+                <h:panelGroup id="display">
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Life Span:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.lifeSpan}" />
-                    </td>
-                </tr>
+                    <table border="1" align="center" cellpadding="5" cellspacing="0">
+                        <tbody>
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Weight (lbs):" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:outputText value="#{catController.selected.weight}" />
-                    </td>
-                </tr>
+                        <!-- Cat ID -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Cat ID:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.catId}"/>
+                            </td>
+                        </tr>
 
-                <tr>
-                    <td align="right" valign="middle" bgcolor="papayawhip">
-                        <h:outputText value="Random Photo:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <h:graphicImage value="#{catController.selected.randomPhotoUrl}" width="150px" />
-                    </td>
-                </tr>
+                        <!-- Name -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Name:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.name}"/>
+                            </td>
+                        </tr>
 
-                <!-- Vetstreet URL Conditional Handling -->
-                <tr>
-                    <td align="right" valign="middle" nowrap="nowrap" bgcolor="papayawhip">
-                        <h:outputText value="Vetstreet Webpage:" />
-                    </td>
-                    <td align="left" valign="middle" bgcolor="oldlace">
-                        <c:if test="#{catController.selected.vetstreetUrl == ''}">
-                            <h:outputText value="N/A" />
-                        </c:if>
-                        <c:if test="#{catController.selected.vetstreetUrl != ''}">
-                            <a href="#{catController.selected.vetstreetUrl}" target="_blank">
-                                <img src="#{resource['images:wwwIcon.png']}" alt="Vetstreet Website" width="30"/>
-                            </a>
-                        </c:if>
-                    </td>
-                </tr>
+                        <!-- Origin -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Origin:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.origin}"/>
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
+                        <!-- Temperament -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Temperament:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.temperament}"/>
+                            </td>
+                        </tr>
+
+                        <!-- Description -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Description:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.description}"/>
+                            </td>
+                        </tr>
+
+                        <!-- Life Span -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Life Span:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.lifeSpan}"/>
+                            </td>
+                        </tr>
+
+                        <!-- Weight -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Weight (lbs):"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <h:outputText value="#{catController.selected.weight}"/>
+                            </td>
+                        </tr>
+
+                        <!-- Vetstreet -->
+                        <tr>
+                            <td align="right" bgcolor="papayawhip">
+                                <h:outputText value="Vetstreet Webpage:"/>
+                            </td>
+                            <td bgcolor="oldlace">
+                                <c:if test="#{catController.selected.vetstreetUrl == ''}">
+                                    <h:outputText value="N/A"/>
+                                </c:if>
+                                <c:if test="#{catController.selected.vetstreetUrl != ''}">
+                                    <a href="#{catController.selected.vetstreetUrl}" target="_blank">
+                                        <img src="#{resource['images:wwwIcon.png']}" width="30" alt=""/>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </h:panelGroup>
+
+            </div>
+
+            <br/><br/>
+
+            <!-- CLOSE BUTTON -->
+            <h:panelGroup>
+                <div align="center">
+                    <p:commandButton value="Close"
+                                     icon="fas fa-window-close"
+                                     styleClass="ui-button-outlined"
+                                     onclick="PF('CatViewDialog').hide()"/>
+                </div>
+            </h:panelGroup>
+
         </h:form>
-
     </p:dialog>
 
 </ui:composition>
+
+
 </html>
