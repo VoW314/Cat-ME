@@ -27,6 +27,9 @@ import org.primefaces.shaded.json.JSONObject;
 @Named("catApiController")
 @SessionScoped
 
+   //https://manta.cs.vt.edu/cs3754/StudentsOnly/CodeSnippets/JSONDirectly.html
+   // https://manta.cs.vt.edu/cs3754/StudentsOnly/CodeSnippets/SelectOneMenu.html
+
 
    public class CatApiController implements Serializable{
        private String catRandomPhotoUrl;

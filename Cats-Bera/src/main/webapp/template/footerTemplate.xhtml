@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets">
+      xmlns:ui="jakarta.faces.facelets" xmlns:h="http://java.sun.com/jsf/html">
 <!--
 *********************************************
 * Footer Component of Template siteTemplate *
@@ -35,7 +35,7 @@ siteTemplate for the entire site, achieving great maintainability.
                 <a href="https://www.petmd.com/cat/care"  target="_blank">
                     <i class="fab fa-audible" />&nbsp;PetMD</a>&nbsp;&nbsp;
                 <a href="https://cat-world.com/" target="_blank">
-                    <i class="fas fa-book" />&nbsp;Cat World &amp; </a>
+                    <i class="fas fa-book" />&nbsp;Cat World; </a>
             </td>
         </tr>
         <tr>
@@ -48,10 +48,25 @@ siteTemplate for the entire site, achieving great maintainability.
         </tr>
         <tr>
             <td align="center" valign="middle">
-                <!-- API Attribution -->
-                <i>Powered By:</i>&nbsp;
-                <a href="https://developers.google.com/books"  target="_blank">
-                    <i class="fab fa-google" />&nbsp;Google Books API</a>&nbsp;&nbsp;
+                <i style="vertical-align: middle">Powered By:</i>&nbsp;&nbsp;
+
+                <!-- The Cat API -->
+                <a href="https://thecatapi.com/" target="_blank">
+                    The Cat API&nbsp;&nbsp;
+                    <!-- I saw the image was included in the powered by on the example site
+                     https://manta.cs.vt.edu/cs3754/StudentsOnly/CodeSnippets/Image.html
+                     -->
+                    <h:graphicImage value="#{resource['images:CatApiLogo.png']}"
+                                    style="height:32px; vertical-align: middle"
+                                    alt="Cat API" />
+                </a>
+
+                &nbsp;&nbsp;
+
+                <!-- Cat Fact API -->
+                <a href="https://catfact.ninja/" target="_blank">
+                    Cat Fact API
+                </a>
             </td>
         </tr>
     </table>

@@ -8,7 +8,7 @@
                 xmlns:p="primefaces"
                 xmlns:ui="jakarta.faces.facelets">
 
-    <ui:define name="editableContentcontent">
+    <ui:define name="editableContent">
 
         <h:form id="CatFactForm">
 
@@ -17,9 +17,12 @@
                 <h1>Random Cat Fact</h1>
                 <br /><br />
 
-                <!-- Show Fact -->
-                <h:outputText value="#{apiController.catFact}"
-                              style="font-size:20px; font-weight:bold;" />
+                <!-- Show Fact. Uses the css style of .catFact -->
+
+                <h:outputText value="#{catApiController.catFact}"
+                              styleClass = "catFact"/>
+
+
 
                 <br /><br /><br />
 
@@ -28,7 +31,7 @@
                                  icon="fas fa-comment"
                                  styleClass="rounded-button"
                                  update="CatFactForm"
-                                 action="#{apiController.getRandomCatFact()}" />
+                                 action="#{catApiController.getRandomCatFact()}" />
 
             </div>
 
